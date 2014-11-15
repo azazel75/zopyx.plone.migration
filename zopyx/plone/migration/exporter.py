@@ -493,7 +493,11 @@ def export_site(app, options):
     export_members(options)
     export_placeful_workflow(options)
     export_structure(options)
-    export_content(options)
+    try:
+        export_content(options)
+    except:
+        import sys
+        import pdb; pdb.post_mortem(sys.exc_info()[2])
 
     log('Export done...releasing memory und Tschuessn')
 
