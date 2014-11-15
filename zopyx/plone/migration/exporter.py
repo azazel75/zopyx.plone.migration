@@ -345,6 +345,12 @@ def export_content(options):
                     value = field.get(obj)
                 except ValueError:
                     continue
+                except:
+                    if obj.portal_type == 'PloneGlossaryDefinition':
+                        print 'Failed export %s' % repr(obj)
+                        continue
+                    else:
+                        raise
                 if field.type in ('image', 'file'):
                     ext_filename = os.path.join(export_dir, '%s_%s.bin' % (_getUID(obj), name))
                     extfp = file(ext_filename, 'wb')
