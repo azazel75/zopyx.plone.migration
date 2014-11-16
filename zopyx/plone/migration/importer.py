@@ -721,7 +721,7 @@ def main():
     parser.add_option('-u', '--user', dest='username', default='admin')
     parser.add_option('-x', '--extension-profiles', dest='extension_profiles', default='')
     parser.add_option('-i', '--input', dest='input_directory', default='')
-    parser.add_option('-d', '--dest-folder', dest='dest_folder', default='sites')
+    parser.add_option('-d', '--dest-folder', dest='dest_folder', default='')
     parser.add_option('-t', '--timestamp', dest='timestamp', action='store_true')
     parser.add_option('-v', '--verbose', dest='verbose', action='store_true', default=False)
     options, args = parser.parse_args()
