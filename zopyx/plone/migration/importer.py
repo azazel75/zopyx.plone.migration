@@ -55,6 +55,7 @@ PT_REPLACE_MAP = {
     'Newsletter' : 'ENLIssue',
     'GMap' : 'GeoLocation',
 #    'Topic': 'Collection',
+    'SimpleFolder': 'Folder'
 }
 
 def import_plonegazette_subscribers(options, newsletter, old_uid):
