@@ -55,6 +55,7 @@ IGNORED_TYPES = (
 IGNORED_IDS = (
     # IDs that are definitely not needed in Plone 4
     'portal_cache_settings',
+    'picwiki' #zwiki old stuff
 )
 
 PT_REPLACEMENT = {
