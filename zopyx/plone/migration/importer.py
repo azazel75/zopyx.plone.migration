@@ -58,6 +58,10 @@ PT_REPLACE_MAP = {
     'SimpleFolder': 'Folder'
 }
 
+STATE_REPLACE_MAP = {
+    'visible' : 'published'
+}
+
 def import_plonegazette_subscribers(options, newsletter, old_uid):
     """ Import PloneGazette subsribers into a new EasyNewsletter instance """
 
@@ -344,6 +348,7 @@ def setReviewState(content, state_id, acquire_permissions=False,
     wf_def = workflows[0]
     wf_id = wf_def.getId()
 
+    state_id = STATE_REPLACE_MAP.get(state_id, state_id)
     wf_state = {
         'action': None,
         'actor': None,
