@@ -40,6 +40,7 @@ IGNORED_TYPES = (
     'NewsletterReference',
     'NewsletterRichReference',
     'CalendarXFolder',
+    'Wiki Page',
 #    'GMap',
 #    'Collage',
 #    'CollageRow',
