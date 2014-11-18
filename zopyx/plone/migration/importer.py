@@ -5,12 +5,9 @@
 
 import os
 import shutil
-import tempfile
-import glob
 import transaction
 import urllib2
 import cPickle
-import shutil
 import sys
 import lxml.html
 from optparse import OptionParser
@@ -18,7 +15,6 @@ from datetime import datetime
 from ConfigParser import ConfigParser
 
 from DateTime.DateTime import DateTime
-from OFS.Folder import manage_addFolder
 from Testing.makerequest import makerequest
 from AccessControl.SecurityManagement import newSecurityManager
 from App.config import getConfiguration
@@ -162,7 +158,6 @@ def import_groups(options):
     get = CP.get
 
     count = 0
-    errors = list()
     for section in CP.sections():
         grp_id = get(section, 'name')
         members = get(section, 'members').split(',')
@@ -603,7 +598,6 @@ def import_content(options):
     content_ini = os.path.join(options.input_directory, 'content.ini')
     CP = ConfigParser()
     CP.read([content_ini])
-    get = CP.get
     sections = CP.sections()
     log('Post migration fix-up (content.ini)')
     for i, section in enumerate(sections):

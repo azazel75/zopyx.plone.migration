@@ -33,20 +33,16 @@ import os
 import uuid
 import gc
 import shutil
-import tempfile
 import sys
 import cPickle
 import transaction
 
-from Acquisition import aq_base
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 from Testing.makerequest import makerequest
 from OFS.interfaces import IOrderedContainer
 from Products.CMFCore.WorkflowCore import WorkflowException
 from AccessControl.SecurityManagement import newSecurityManager
-from zope.component import getMultiAdapter
-from zope.component.interfaces import ComponentLookupError
 
 IGNORED_TYPES = (
     'NewsletterTheme',
@@ -504,7 +500,6 @@ def export_site(app, options):
 
 def main():
     from optparse import OptionParser
-    from AccessControl.SecurityManagement import newSecurityManager
     import Zope
     gc.enable()
     app = Zope.app()
