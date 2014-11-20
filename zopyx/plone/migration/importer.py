@@ -53,7 +53,8 @@ PT_REPLACE_MAP = {
     'GMap' : 'GeoLocation',
 #    'Topic': 'Collection',
     'SimpleFolder': 'Folder',
-    'ExFile': 'File'
+    'ExFile': 'File',
+    'PloneExFile': 'File'
 }
 
 STATE_REPLACE_MAP = {
