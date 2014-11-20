@@ -54,7 +54,8 @@ PT_REPLACE_MAP = {
 #    'Topic': 'Collection',
     'SimpleFolder': 'Folder',
     'ExFile': 'File',
-    'PloneExFile': 'File'
+    'PloneExFile': 'File',
+    'CMF Folder': 'Folder'
 }
 
 STATE_REPLACE_MAP = {
@@ -229,7 +230,7 @@ def setLocalRoles(obj, local_roles):
         obj.manage_setLocalRoles(userid, roles)
 
 def setLayout(obj, layout):
-    if not layout:
+    if not layout or layout == 'ploneexfile_view':
         return
     layout_ids = [id for id, title in obj.getAvailableLayouts()]
     if layout in layout_ids:
