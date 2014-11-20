@@ -52,7 +52,8 @@ PT_REPLACE_MAP = {
     'Newsletter' : 'ENLIssue',
     'GMap' : 'GeoLocation',
 #    'Topic': 'Collection',
-    'SimpleFolder': 'Folder'
+    'SimpleFolder': 'Folder',
+    'ExFile': 'File'
 }
 
 STATE_REPLACE_MAP = {
