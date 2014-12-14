@@ -44,6 +44,11 @@ from OFS.interfaces import IOrderedContainer
 from Products.CMFCore.WorkflowCore import WorkflowException
 from AccessControl.SecurityManagement import newSecurityManager
 
+try:
+    from zope.component.hooks import getSite, setSite
+except ImportError:
+    from zope.app.component.hooks import getSite, setSite
+
 IGNORED_TYPES = (
     'NewsletterTheme',
 )
@@ -458,6 +463,7 @@ def export_site(app, options):
     if plone is None:
         raise RuntimeError('Plone site not found (%s)' % options.path)
 
+    setSite(plone)
     site_id = plone.getId()
     export_dir = os.path.join(options.output, site_id)
     if os.path.exists(export_dir):
