@@ -636,7 +636,7 @@ def import_content(options):
         if obj is not None:
             for f in obj.Schema().filterFields(type='reference'):
                 name = f.getName()
-                old_uids = obj_data['schemadata'][name] or []
+                old_uids = obj_data['schemadata'].get(name, [])
                 new_refs = uids_to_references(options, obj, old_uids)
                 if len(new_refs) > 0:
                     if options.verbose:
