@@ -338,13 +338,23 @@ def export_content(options):
             continue
 
         obj_data = dict(schemadata=dict(), metadata=dict())
+        try:
+            from AttachmentField.AttachmentField import AttachmentField
+        except ImportError:
+            AttachmentField = None
         if schema:
             ext_filename = None
             for field in schema.fields():
                 name = field.getName()
+                ftype = field.type
                 try:
-                    value = field.get(obj)
+                    if AttachmentField and isinstance(field, AttachmentField):
+                        value = field.get(obj, unwrapped=True, raw=True)
+                        ftype = 'attachment'
+                    else:
+                        value = field.get(obj)
                 except ValueError:
+                    log('Failed export of field %r, type %r, path %r, ptype %r' % (name, ftype, _getRelativePath(obj, options.plone), obj.portal_type ))
                     continue
                 except:
                     if obj.portal_type == 'PloneGlossaryDefinition':
@@ -352,13 +362,16 @@ def export_content(options):
                         continue
                     else:
                         raise
-                if field.type in ('image', 'file'):
+                if ftype in ('image', 'file', 'attachment'):
                     ext_filename = os.path.join(export_dir, '%s_%s.bin' % (_getUID(obj), name))
                     extfp = file(ext_filename, 'wb')
-                    try:
-                        data = str(value.data)
-                    except:
+                    if ftype == 'attachment':
                         data = value
+                    else:
+                        try:
+                            data = str(value.data)
+                        except:
+                            data = value
                     extfp.write(data)
                     extfp.close()
                     value = 'file://%s/%s_%s.bin' % (os.path.abspath(export_dir), _getUID(obj), name)
