@@ -26,7 +26,7 @@ from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConf
 
 IGNORED_FIELDS = ('id', 'relatedItems')
 IGNORED_TYPES = (
-#    'Topic',
+    'Topic',
 #    'Ploneboard',
 #    'PloneboardForum',
 #    'NewsletterTheme',
