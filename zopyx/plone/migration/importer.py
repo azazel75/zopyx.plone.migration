@@ -477,25 +477,27 @@ def import_topic_criterions(options, topic, criterion_ids, old_uid):
     if not os.path.exists(pickle_filename):
         return
     obj_data = cPickle.load(file(pickle_filename))
-    for crit_id in criterion_ids:
-        crit_data = obj_data['topic_criterions'].get(crit_id)
-        if not crit_data or not crit_data.get('portal_type') or not crit_data.get('field'):
-            # disabled suptopic support
-            continue
-        crit = topic.addCriterion(crit_data['field'], crit_data['portal_type'])
-        if not crit:
-            continue
-        crit_schema = crit.aq_base.Schema()
-        for field in crit_schema.fields():
-            name = field.getName()
-            if name in IGNORED_FIELDS:
+    try:
+        for crit_id in criterion_ids:
+            crit_data = obj_data['topic_criterions'].get(crit_id)
+            if not crit_data or not crit_data.get('portal_type') or not crit_data.get('field'):
+                # disabled suptopic support
                 continue
-            value = crit_data.get(name)
-            if field.type == "reference":
-                value = uids_to_references(options, topic, value)
-            if value:
-                field.set(crit, value)
-
+            crit = topic.addCriterion(crit_data['field'], crit_data['portal_type'])
+            if not crit:
+                continue
+            crit_schema = crit.aq_base.Schema()
+            for field in crit_schema.fields():
+                name = field.getName()
+                if name in IGNORED_FIELDS:
+                    continue
+                value = crit_data.get(name)
+                if field.type == "reference":
+                    value = uids_to_references(options, topic, value)
+                if value:
+                    field.set(crit, value)
+    except (KeyError, AttributeError):
+        log('Error while setting criterions on topic  %r' % topic)
 
 def uids_to_references(options, context, old_uids):
     if isinstance(old_uids, basestring):
